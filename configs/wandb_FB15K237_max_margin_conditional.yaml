@@ -1,0 +1,43 @@
+program: models/wandb_run.py
+method: bayes
+metric:
+  name: validation_avg_rank
+  goal: minimize
+parameters:
+  # hyperparameters start with overrides
+  # Ranges
+  overrides.model.number_of_negative_samples:
+    value: 2
+  overrides.trainer.optimizer.lr:
+    min: -9.2
+    max: -4.6
+    distribution: log_uniform
+  overrides.model.type:
+    value: max-margin-conditional-box-model
+  overrides.model.single_box:
+    values: ["true","false"]
+  overrides.model.box_type:
+    values: ["DeltaBoxTensor","SigmoidBoxTensor"]
+  overrides.model.softbox_temp:
+    min: 1
+    max: 50
+    distribution: uniform
+  overrides.model.margin:
+    min: 0.0
+    max: 4.6
+    distribution: log_uniform
+  overrides.model.embedding_dim:
+    values: [50, 100, 150, 200, 250]
+  overrides.iterator.batch_size:
+    min: 6.2
+    max: 9.0
+    distribution: q_log_uniform
+  # mandatory parameters with fixed names
+  local_config_file:
+    value: "/mnt/nfs/work1/mccallum/dhruveshpate/kb_completion/models/configs/gypsum_default_training_with_rank_validation_with_wandb_log.jsonnet"
+  subcommand:
+    value: train
+  # params to pass as args to wandb.run object
+  tags:
+    value: "head_to_tail,conditional,max_margin,SigmoidBoxTensor,val_avg_rank"
+    # format: exact score calculation, conditional or not, loss, box_type,val metric

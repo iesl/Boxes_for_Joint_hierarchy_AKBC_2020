@@ -1,0 +1,68 @@
+{
+	"dataset_reader": {
+            "type":
+            "openke-dataset",
+            "dataset_name":
+            "WN18RR",
+            "all_datadir":
+            "/mnt/nfs/work1/mccallum/dhruveshpate/kb_completion/models/.data",
+            "mode":
+            "train",
+            "number_negative_samples":
+            1
+        },
+	"validation_dataset_reader":{
+	    "type":
+            "openke-rank-validation-dataset",
+            "dataset_name":
+            "WN18RR",
+            "all_datadir":
+            "/mnt/nfs/work1/mccallum/dhruveshpate/kb_completion/models/.data"
+            },
+	"train_data_path": "dummpy_path",
+	"validation_data_path": "dummy_path",
+	"datasets_for_vocab_creation": [],
+	"iterator":{
+		"type":"basic",
+		"batch_size": 10000
+	},
+	"validation_iterator":{
+		"type":"single-sample-rank-validation-iterator",
+		"batch_size":1
+	},
+        "model": {
+            "type": "sigmoid-box-model",
+            "num_entities": 40943,
+            "num_relations": 11,
+            "embedding_dim": 64,
+	    "debug": false,
+            "box_type": "SigmoidBoxTensor"
+        },
+	"trainer":{
+		"type":"callback",
+		"callbacks":[
+			{
+				"type": "validate"
+			},
+			{
+				"type": "checkpoint",
+				"checkpointer":{
+					"num_serialized_models_to_keep":1
+				}
+			},
+			{
+				"type": "track_metrics",
+				"patience": 10,
+				"validation_metric": "-avg_rank"
+			}
+		],
+		"optimizer": {
+			"type": "sparse_adam",
+			"lr":0.1
+		},
+		"cuda_device": 0,
+		"num_epochs": 25,
+		"shuffle": true
+	}
+
+}

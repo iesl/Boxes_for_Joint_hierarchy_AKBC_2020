@@ -1,0 +1,71 @@
+{
+	"dataset_reader": {
+            "type":
+            "openke-dataset",
+            "dataset_name":
+            "FB15K237",
+            "all_datadir":
+            "/Users/dhruv/UnsyncedDocuments/IESL/kb_completion/datasets/.data/test",
+            "mode":
+            "train",
+            "number_negative_samples":
+            1
+        },
+	"validation_dataset_reader":{
+	    "type":
+            "openke-rank-validation-dataset",
+            "dataset_name":
+            "FB15K237",
+            "all_datadir":
+            "/Users/dhruv/UnsyncedDocuments/IESL/kb_completion/datasets/.data/test"
+            },
+	"train_data_path": "dummpy_path",
+	"validation_data_path": "dummy_path",
+	"datasets_for_vocab_creation": [],
+	"iterator":{
+		"type":"basic",
+		"batch_size": 32
+	},
+	"validation_iterator":{
+		"type":"single-sample-rank-validation-iterator",
+		"batch_size":1
+	},
+        "model": {
+            "type": "sigmoid-box-model",
+            "num_entities": 14541,
+            "num_relations": 237,
+            "embedding_dim": 50,
+            "box_type": "SigmoidBoxTensor",
+	    "debug": false
+        },
+	"trainer":{
+		"type":"callback",
+		"callbacks":[
+			{
+				"type": "validate"
+			},
+			{
+				"type": "checkpoint",
+				"checkpointer":{
+					"num_serialized_models_to_keep":1
+				}
+			},
+			{
+				"type": "track_metrics",
+				"patience": 10,
+				"validation_metric": "-avg_rank"
+			},
+			{
+				"type": "log_metrics_to_wandb"
+			}
+		],
+		"optimizer": {
+			"type": "sparse_adam",
+			"lr":0.01
+		},
+		"cuda_device": -1,
+		"num_epochs": 25,
+		"shuffle": true
+	}
+
+}
