@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from allennlp.training.callback_trainer import CallbackTrainer
 
 
-@Callback.register("log_metrics_to_wandb")
+@Callback.register("log_metrics_to_wandb_arc")
 class LogMetricsToWandb(Callback):
     def __init__(self, debug=False, debug_log_freq: int = 100) -> None:
         # import wandb here to be sure that it was initialized
