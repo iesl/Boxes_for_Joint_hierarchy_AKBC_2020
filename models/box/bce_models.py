@@ -295,6 +295,28 @@ class BCEBoxClassificationSplitNegModel(BCEBoxClassificationModel):
         return {'h': head, 't': tail, 'r': rel, 'label': label}
 
 
+@Model.register('BCE-classification-box-model-akbc')
+class BCEBoxClassificationModel_AKBC(BCEBoxClassificationSplitNegModel):
+    def get_regularization_penalty(self) -> Union[float, torch.Tensor]:
+
+        if self.is_eval():
+            return 0.0
+
+        if self.regularization_weight > 0:
+            vols = torch.exp(self.h.get_volumes(temp=self.softbox_temp))
+            # don't penalize if box has very less vol
+            mask = (vols > (0.01)**self.embedding_dim)
+            vols = vols[mask]
+            penalty = self.regularization_weight * torch.sum(vols)
+
+            # track the reg loss
+            self.regularization_loss(penalty.item())
+
+            return penalty
+        else:
+            return 0.0
+
+
 @Model.register('BCE-classification-split-neg-vol-penalty-box-model')
 class BCEBoxClassificationSplitNegVolPenaltyModel(
         BCEBoxClassificationSplitNegModel):
