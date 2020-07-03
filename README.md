@@ -22,7 +22,7 @@ The data used in the paper can be found [here](https://drive.google.com/file/d/1
 export DATA_DIR=directory/where/unzipped/data/folder/is
 export CUDA_DEVICE=0  # =-1 for cpu
 export WANDB=false 
-allennlp train model_configs/hypernym_0.jsonnet --serialization-dir hypernym_0_training_dump --include-package=datasets --include-package=boxes --include-package=model
+allennlp train model_configs/hypernym_0.jsonnet --serialization-dir hypernym_0_training_dump --include-package=datasets --include-package=boxes --include-package=models
 ```
 
 #### With Weights&Biases logging
