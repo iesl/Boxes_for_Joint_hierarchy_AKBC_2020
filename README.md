@@ -31,7 +31,7 @@ Assuming your username and project is `username` and `project` respectively.
 ```
 export DATA_DIR=directory/where/unzipped/data/folder/is
 export CUDA_DEVICE=0  # =-1 for cpu
-export WANDB=false 
+export WANDB=true 
 wandb_allennlp --subcommand=train --config_file=model_configs/hypernym_0.jsonnet --include-package=datasets --include-package=boxes --include-package=models --wandb_entity=username --wandb_project=project --wandb_run_name=hypernym_0
 ```
 
