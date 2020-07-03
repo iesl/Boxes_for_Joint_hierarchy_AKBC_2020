@@ -46,3 +46,14 @@ python predict_f1_test.py --model hypernym_0_training_dump
 Replace `hypernym_0` with `hypernym_{10,25,50}`, `meronym_{0,10,25,30}` and `joint` to train all the regularized box models reported in the paper.
 
 
+# If you use the code, please site the following paper.
+```
+@inproceedings{
+patel2020representing,
+title={Representing Joint Hierarchies with Box Embeddings},
+author={Dhruvesh Patel and Shib Sankar Dasgupta and Michael Boratko and Xiang Li and Luke Vilnis and Andrew McCallum},
+booktitle={Automated Knowledge Base Construction},
+year={2020},
+url={https://openreview.net/forum?id=J246NSqR_l}
+}
+```
