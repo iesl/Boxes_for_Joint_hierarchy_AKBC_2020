@@ -98,7 +98,7 @@ ninja==1.9.0
 nlp-utils @ git+https://github.com/dhruvdcoder/nlp-utils.git@ea218084cda7ee409f09204ff9aff13bbe85c9de
 nltk==3.4.1
 notebook==5.7.8
-numpy==1.17.2
+numpy==1.22.0
 numpydoc==0.9.1
 nvidia-ml-py3==7.352.0
 oauth2client==4.1.3
