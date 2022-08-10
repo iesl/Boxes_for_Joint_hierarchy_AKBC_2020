@@ -90,7 +90,7 @@ mypy==0.701
 mypy-extensions==0.4.1
 mysql-connector-python==8.0.16
 namedtensor==0.0.2
-nbconvert==5.5.0
+nbconvert==6.3.0
 nbformat==4.4.0
 neptune-client==0.2.12
 networkx==2.3
